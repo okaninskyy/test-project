@@ -1,9 +1,40 @@
-## Python Asincio
-- The test project according to "Tech test.pdf"
+# Python Asyncio Project
 
-python -v
-Python 3.10.11 (tags/v3.10.11:7d4cc5a, Apr  5 2023, 00:38:17) [MSC v.1929 64 bit (AMD64)] on win32
+This is a Python implementation of an asynchronous application based on the requirements from "Tech test.pdf".
 
-- The run instructon:
+## Features
+
+- Asynchronous operations using Python's asyncio library
+- Efficient handling of concurrent tasks
+- Error handling and robust implementation
+- Command-line interface
+
+## Prerequisites
+
+- Python 3.10.11 or higher
+- pip (Python Package Manager)
+
+## Installation
+
+1. Clone the repository
+2. Install dependencies:
+```bash
 pip install -r requirements.txt
-python .\task3.py
+```
+
+## Running the Application
+
+You can run the application using:
+
+```bash
+python task3.py
+```
+
+## System Information
+
+- Python Version: 3.10.11 [MSC v.1929 64 bit (AMD64)]
+- Platform: Windows (win32)
+
+## Notes
+
+For detailed information about the implementation and requirements, please refer to "Tech test.pdf" in the project documentation.
