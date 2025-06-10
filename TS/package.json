@@ -1,0 +1,21 @@
+{
+  "name": "user-management-ts",
+  "version": "1.0.0",
+  "description": "User management application in TypeScript",
+  "main": "dist/task3.js",
+  "scripts": {
+    "build": "tsc",
+    "start": "ts-node src/task3.ts",
+    "dev": "ts-node-dev --respawn src/task3.ts"
+  },
+  "dependencies": {
+    "axios": "^1.6.7",
+    "table": "^6.8.1"
+  },
+  "devDependencies": {
+    "@types/node": "^20.11.19",
+    "ts-node": "^10.9.2",
+    "ts-node-dev": "^2.0.0",
+    "typescript": "^5.3.3"
+  }
+} 
