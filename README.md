@@ -13,7 +13,6 @@ This is a Python implementation of an asynchronous application based on the requ
 
 - Python 3.10.11 or higher
 - pip (Python Package Manager)
-- Java Runtime Environment (JRE) for Allure reports
 
 ## Installation
 
@@ -33,50 +32,45 @@ python task3.py
 
 ## Testing
 
-The project includes comprehensive test coverage using pytest and Allure for beautiful test reports.
+The project includes comprehensive test coverage using pytest. The tests verify various aspects of the application including:
 
-### Installing Allure
+- API integration and data fetching
+- User filtering with regex patterns
+- Display formatting options
+- Error handling
+- Main program flow
 
-1. Install Allure command-line tool:
-   - For Windows (manual instalation):
-     ```
-        download Allure from https://github.com/allure-framework/allure2/releases
-        add allure binary to system path
-     ```
-   - For macOS:
-     ```bash
-     brew install allure
-     ```
-   - For Linux:
-     ```bash
-     sudo apt-add-repository ppa:qameta/allure
-     sudo apt-get update
-     sudo apt-get install allure
-     ```
+### Installing Test Dependencies
 
-2. Install Python dependencies for testing:
+Install the required testing packages:
 ```bash
-pip install pytest pytest-asyncio allure-pytest
+pip install pytest pytest-asyncio
 ```
 
 ### Running Tests
 
-1. Run tests with Allure report generation:
+Run the tests using one of the following commands:
+
+1. Run all tests:
 ```bash
-pytest tests_task3.py -v --alluredir=./allure-results
+pytest tests_task3.py -v
 ```
 
-2. Generate and open the Allure report:
+2. Run a specific test:
 ```bash
-allure serve ./allure-results
+pytest tests_task3.py -v -k "test_name"
 ```
 
-The Allure report will open in your default web browser, showing:
+3. Run with detailed output:
+```bash
+pytest tests_task3.py -v -s
+```
+
+The test output will show:
 - Test execution summary
-- Test case descriptions and steps
-- Test execution timeline
-- Severity distribution
-- Attachments and failure details
+- Individual test results
+- Detailed error messages for failures
+- Code coverage information (if configured)
 
 ## System Information
 

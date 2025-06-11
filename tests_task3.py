@@ -1,5 +1,4 @@
 import pytest
-import allure
 import asyncio
 from task3 import (
     fetch_users,
@@ -12,12 +11,10 @@ from task3 import (
     main
 )
 
-@allure.epic("User Management System")
-@allure.feature("API Integration")
 class TestUserManagement:
 
     @pytest.fixture
-    async def sample_users(self):
+    def sample_users(self):
         """
         Fixture providing sample user data for testing.
         Returns a list of two users with predefined data structure.
@@ -35,8 +32,6 @@ class TestUserManagement:
             }
         ]
 
-    @allure.story("User Fetching")
-    @allure.severity(allure.severity_level.CRITICAL)
     @pytest.mark.asyncio
     async def test_fetch_users(self):
         """
@@ -46,17 +41,15 @@ class TestUserManagement:
         3. Check that each user object contains required 'name' field
         4. Ensure the response format matches expected structure
         """
-        with allure.step("Fetching users from API"):
-            users = await fetch_users()
+        # Fetching users from API
+        users = await fetch_users()
         
-        with allure.step("Validating fetched users"):
-            assert users is not None
-            assert isinstance(users, list)
-            assert len(users) > 0
-            assert all('name' in user for user in users)
+        # Validating fetched users
+        assert users is not None
+        assert isinstance(users, list)
+        assert len(users) > 0
+        assert all('name' in user for user in users)
 
-    @allure.story("User Filtering")
-    @allure.severity(allure.severity_level.NORMAL) 
     def test_filter_users_by_name(self, sample_users):
         """
         Test cases for filter_users_by_name function:
@@ -75,12 +68,9 @@ class TestUserManagement:
         ]
 
         for pattern, expected_count in test_cases:
-            with allure.step(f"Testing pattern: {pattern}"):
-                filtered = filter_users_by_name(sample_users, pattern)
-                assert len(filtered) == expected_count
+            filtered = filter_users_by_name(sample_users, pattern)
+            assert len(filtered) == expected_count
 
-    @allure.story("Display Formatting")
-    @allure.severity(allure.severity_level.MINOR)
     def test_display_functions(self, sample_users, capsys):
         """
         Test cases for display functions:
@@ -102,28 +92,26 @@ class TestUserManagement:
         ]
 
         for func in display_functions:
-            with allure.step(f"Testing {func.__name__}"):
-                func(sample_users)
-                captured = capsys.readouterr()
-                assert captured.out  # Verify some output was produced
+            func(sample_users)
+            captured = capsys.readouterr()
+            assert captured.out  # Verify some output was produced
 
-    @allure.story("Error Handling")
-    @allure.severity(allure.severity_level.NORMAL)
-    def test_error_handling(self):
+    def test_error_handling(self, capsys):
         """
         Test cases for error handling:
         1. Test invalid user data structure
            - Provides malformed user data
-           - Expects exception to be raised
-           - Verifies proper error handling for missing required fields
+           - Verifies error message for missing required fields
+           - Checks that the error is properly displayed to the user
         """
-        with allure.step("Testing invalid user data"):
-            invalid_users = [{"invalid": "data"}]
-            with pytest.raises(Exception):
-                display_users(invalid_users)
+        # Testing invalid user data with missing required field
+        invalid_users = [{"invalid": "data"}]
+        display_users(invalid_users)
+        
+        # Verify the error message
+        captured = capsys.readouterr()
+        assert "Error: Missing required field in user data: 'name'" in captured.out
 
-    @allure.story("Main Program Flow")
-    @allure.severity(allure.severity_level.BLOCKER)
     @pytest.mark.asyncio
     async def test_main_program(self, monkeypatch):
         """
@@ -134,13 +122,12 @@ class TestUserManagement:
            - Verifies program executes without errors
            - Ensures proper handling of user input and program flow
         """
-        with allure.step("Testing main program execution"):
-            # Simulate user input
-            inputs = iter(['1', '4'])  # Show all users, then exit
-            monkeypatch.setattr('builtins.input', lambda _: next(inputs))
-            
-            # Run main without errors
-            await main()
+        # Simulate user input sequence including Enter presses after displays
+        inputs = iter(['1', '', '4'])  # Show all users, press Enter after display, Exit
+        monkeypatch.setattr('builtins.input', lambda _: next(inputs))
+        
+        # Run main without errors
+        await main()
 
 if __name__ == '__main__':
-    pytest.main(['-v', '--alluredir=./allure-results'])
+    pytest.main(['-v'])
