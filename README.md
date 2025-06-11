@@ -39,8 +39,9 @@ The project includes comprehensive test coverage using pytest and Allure for bea
 
 1. Install Allure command-line tool:
    - For Windows (manual instalation):
-        download Allure from https://github.com/allure-framework/allure2/releases
+     ```download Allure from https://github.com/allure-framework/allure2/releases
         add allure binary to system path
+     ```
    - For macOS:
      ```bash
      brew install allure
